@@ -27,7 +27,8 @@ docker run -v /my/custom/default.conf:/etc/nginx/conf.d/default.conf -p 80:80 ll
 
 ## dependency
 1. make
-2. wscat `sudo npm install -g wscat`
+2. curl
+3. wscat `sudo npm install -g wscat`
 
 ## start server
 ```
