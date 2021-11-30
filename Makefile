@@ -4,5 +4,8 @@ build:
 push:
 	docker push lloydzhou/openresty-nchan
 
+test:
+	docker run --rm -it -p 80:80 lloydzhou/openresty-nchan
+
 
 
