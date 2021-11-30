@@ -1,11 +1,11 @@
 build:
-	docker build -t lloydzhou/openresty-nchan -f Dockerfile . | tee /tmp/build.log
+	docker build -t lloydzhou/nchan -f Dockerfile . | tee /tmp/build.log
 
 push:
-	docker push lloydzhou/openresty-nchan
+	docker push lloydzhou/nchan
 
 test:
-	docker run --rm -it -p 80:80 lloydzhou/openresty-nchan
+	docker run --rm -it -p 80:80 lloydzhou/nchan
 
 
 

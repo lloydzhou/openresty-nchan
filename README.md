@@ -14,6 +14,15 @@ High Performance Web Platform Based on Nginx and LuaJIT
 1. based on openresty/openresty:alpine
 2. using multistage-build
 
+# Usage
+
+```
+docker run [options] lloydzhou/nchan
+
+docker run -v /my/custom/default.conf:/etc/nginx/conf.d/default.conf -p 80:80 lloydzhou/nchan
+
+```
+
 # test
 
 ## dependency
