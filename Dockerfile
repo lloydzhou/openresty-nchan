@@ -42,7 +42,7 @@ RUN RESTY_J=1 CONFARGS=$(nginx -V 2>&1 | awk -F 'arguments:' '/configure/{print 
     && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
     && tar xzf openresty-${RESTY_VERSION}.tar.gz \
     && cd /tmp/openresty-${RESTY_VERSION} \
-    && eval ./configure -j${RESTY_J} --add-dynamic-module=../nchan-${NCHAN_VERSION}  \
+    && eval ./configure -j${RESTY_J} ${CONFARGS} --add-dynamic-module=../nchan-${NCHAN_VERSION}  \
     && make -j${RESTY_J}
 
 FROM openresty/openresty:${RESTY_TAG}
