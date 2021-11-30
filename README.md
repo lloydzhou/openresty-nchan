@@ -10,6 +10,10 @@ https://github.com/openresty/openresty
 
 High Performance Web Platform Based on Nginx and LuaJIT 
 
+# build
+1. based on openresty/openresty:alpine
+2. using multistage-build
+
 # test
 
 ## dependency
