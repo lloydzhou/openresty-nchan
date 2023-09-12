@@ -36,7 +36,7 @@ RUN apk add --no-cache --virtual .build-deps \
 
 RUN RESTY_VERSION=$(nginx -V 2>&1 | awk -F '/' '/version/{print $2}') && cd /tmp \
     && echo NCHAN_VERSION ${NCHAN_VERSION} RESTY_VERSION ${RESTY_VERSION} \
-    && wget "https://github.com/slact/nchan/archive/v${NCHAN_VERSION}.tar.gz" -O nchan.tar.gz \
+    && wget "https://ghproxy.com/https://github.com/slact/nchan/archive/v${NCHAN_VERSION}.tar.gz" -O nchan.tar.gz \
     && tar -xzvf "nchan.tar.gz" \
     && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
     && tar xzf openresty-${RESTY_VERSION}.tar.gz
