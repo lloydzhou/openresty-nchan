@@ -1,0 +1,3 @@
+[submodule "nginx-proxy"]
+	path = nginx-proxy
+	url = https://github.com/nginx-proxy/nginx-proxy
