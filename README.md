@@ -10,6 +10,13 @@ https://github.com/openresty/openresty
 
 High Performance Web Platform Based on Nginx and LuaJIT 
 
+# nginx-proxy
+
+https://github.com/nginx-proxy/nginx-proxy
+
+Automated nginx proxy for Docker containers using docker-gen
+
+
 # build
 1. based on openresty/openresty:alpine
 2. using multistage-build
