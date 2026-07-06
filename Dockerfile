@@ -1,7 +1,7 @@
-ARG RESTY_TAG="1.25.3.1-alpine"
+ARG RESTY_TAG="1.27.1.1-alpine"
 FROM openresty/openresty:${RESTY_TAG} AS builder
 
-ARG NCHAN_VERSION="1.3.6"
+ARG NCHAN_VERSION="1.3.8"
 ARG RESTY_J="1"
 ARG RESTY_ADD_PACKAGE_BUILDDEPS=""
 ARG RESTY_ADD_PACKAGE_RUNDEPS=""
@@ -38,6 +38,7 @@ RUN RESTY_VERSION=$(nginx -V 2>&1 | awk -F '/' '/version/{print $2}') && cd /tmp
     && echo NCHAN_VERSION ${NCHAN_VERSION} RESTY_VERSION ${RESTY_VERSION} \
     && wget "https://github.com/slact/nchan/archive/v${NCHAN_VERSION}.tar.gz" -O nchan.tar.gz \
     && tar -xzvf "nchan.tar.gz" \
+      && sed -i "/assert(spool->msg_status == MSG_INVALID)/d" nchan-${NCHAN_VERSION}/src/store/spool.c \
     && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
     && tar xzf openresty-${RESTY_VERSION}.tar.gz
 
