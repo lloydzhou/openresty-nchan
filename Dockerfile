@@ -1,4 +1,4 @@
-ARG RESTY_TAG="1.27.1.1-alpine"
+ARG RESTY_TAG="1.25.3.1-alpine"
 FROM openresty/openresty:${RESTY_TAG} AS builder
 
 ARG NCHAN_VERSION="1.3.8"
