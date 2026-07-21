@@ -1,4 +1,4 @@
-ARG RESTY_TAG="1.25.3.1-alpine"
+ARG RESTY_TAG="1.27.1.1-alpine"
 FROM openresty/openresty:${RESTY_TAG} AS builder
 
 ARG NCHAN_VERSION="1.3.8"
@@ -38,12 +38,13 @@ RUN RESTY_VERSION=$(nginx -V 2>&1 | awk -F '/' '/version/{print $2}') && cd /tmp
     && echo NCHAN_VERSION ${NCHAN_VERSION} RESTY_VERSION ${RESTY_VERSION} \
     && wget "https://github.com/slact/nchan/archive/v${NCHAN_VERSION}.tar.gz" -O nchan.tar.gz \
     && tar -xzvf "nchan.tar.gz" \
-      && sed -i "/assert(spool->msg_status == MSG_INVALID)/d" nchan-${NCHAN_VERSION}/src/store/spool.c \
+    && sed -i "/assert(spool->msg_status == MSG_INVALID)/d" nchan-${NCHAN_VERSION}/src/store/spool.c \
+    && sed -i "s/assert(d->subrequest);/if(d->subrequest == NULL) return NGX_OK;/" nchan-${NCHAN_VERSION}/src/subscribers/websocket.c \
     && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
     && tar xzf openresty-${RESTY_VERSION}.tar.gz
 
 # gen configure args, remove "--add-module=***" openresty auto add the modules
-RUN RESTY_J=1 CONFARGS=$(nginx -V 2>&1 | awk -F '--prefix=/usr/local/openresty/nginx' '/configure/{print $2}' | sed 's/\--add-module=\.\.\/\([^\ ]*\)//g') RESTY_VERSION=$(nginx -V 2>&1 | awk -F '/' '/version/{print $2}') && echo ${RESTY_VERSION} ${CONFARGS} \
+RUN CONFARGS=$(nginx -V 2>&1 | awk -F '--prefix=/usr/local/openresty/nginx' '/configure/{print $2}' | sed 's/\--add-module=\.\.\/\([^\ ]*\)//g') RESTY_VERSION=$(nginx -V 2>&1 | awk -F '/' '/version/{print $2}') && echo ${RESTY_VERSION} ${CONFARGS} \
     && cd /tmp/openresty-${RESTY_VERSION} \
     && ls bundle \
     && eval ./configure -j${RESTY_J} ${CONFARGS} --add-dynamic-module=../nchan-${NCHAN_VERSION}  \
